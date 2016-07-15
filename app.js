@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
  var User = require('./models/user.js');
 //var bCrypt = require('bcrypt');
 
-	
+	 
 	mongoose.connect(dbConfig.url);
 
 	app.use(express.static(__dirname + '/public'));
@@ -27,6 +27,7 @@ console.log('No se pudo guardar el usuario: '+err);
 throw err;
 }
 console.log('Se registró correctamente el usuario');
+console.log('prueba');
 });
 
 
