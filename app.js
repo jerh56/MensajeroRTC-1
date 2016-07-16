@@ -28,6 +28,7 @@ throw err;
 }
 console.log('Se registró correctamente el usuario');
 console.log('prueba');
+console.log('prueba carlos');
 });
 
 
