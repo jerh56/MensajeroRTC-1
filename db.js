@@ -1,4 +1,4 @@
 module.exports = {
-  'url_test' : 'mongodb://admin:123456@ds051903.mlab.com:51903/heroku_554zpg9r',
-   'url' : 'mongodb://localhost/passport'
+  'url' : 'mongodb://heroku_9gv89pgx:a123456@ds023245.mlab.com:23245/heroku_9gv89pgx',
+   'url_test' : 'mongodb://localhost/passport'
 }
