@@ -1,5 +1,6 @@
 
 var express = require('express');
+var ejs = require('ejs'); // Render
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -32,8 +33,13 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout:'layout'}));
-app.set('view engine', 'handlebars');
+// manejador de vistas ejs para usar HTML en lugas de archivos .jade
+//app.set('view engine', 'ejs');
+// Usar HTML en lugar de archivos ejs para mayor facilidad de los diseñadores.
+app.set('view engine', 'html');
+app.engine('html', ejs.renderFile);
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //bodyparser middleware
 app.use(bodyParser.json());
