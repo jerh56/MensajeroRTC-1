@@ -30,6 +30,7 @@ var app = express();
     mongoose.connect(dbConfig.url);
     //mongoose.connect('mongodb://localhost/loginapp');
 
+//prueba git kraken
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
