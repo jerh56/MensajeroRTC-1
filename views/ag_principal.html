@@ -45,7 +45,7 @@
 	</head>
 
 	<body>
-	<div class="navbar" id="navbar">
+		<div class="navbar" id="navbar">
 			<script type="text/javascript">
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
 			</script>
@@ -74,18 +74,13 @@
 
 							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
 								<li>
-									<a href="/">
-										<i class="icon-home "></i>
-										Inicio
-									</a>
-								</li>
-
-								<li>
 									<a href="/registro">
 										<i class="icon-user"></i>
 										Registro
 									</a>
 								</li>
+
+
 
 								<li class="divider"></li>
 
@@ -103,83 +98,84 @@
 		</div>
 
 		<div class="main-container container-fluid">
+			<a class="menu-toggler" id="menu-toggler" href="#">
+				<span class="menu-text"></span>
+			</a>
 			
-				<div class="row-fluid">
-					<div class="span12">
-						<div class="login-container">
-							<div class="row-fluid">
-								
+			<section class="page-content">
+					
+						<h1>Bienvenido al Mensajero RTC</h1>
+						
+						<h1>Help Desk</h1>	
 
-							<div class="space-6"></div>
+			</section>
+			<section class="page-content">
 
-							<div class="row-fluid">
-								<div class="position-relative">
-									<div id="login-box" class="login-box visible widget-box no-border">
-										<div class="widget-body">
-											<div class="widget-main">
-												<h4 class="header blue lighter bigger">
-													<i class="icon-key"></i>
-													Introduzca su Informacion
-												</h4>
+						<h1>Hola <%= user.username %></h1>
+               			<h1><%= message %></h1>
+			</section>	
 
 
-												<div class="space-6"></div>
+			</div><!--/.page-content-->
+			
 
-												<form method="post" action="/signin">
-													<fieldset>
-														<label>
-															<span class="block input-icon input-icon-right">
-																<input type="text" class="span12" placeholder="Correo Electronico" name="email" required>
-																<i class="icon-user"></i>
-															</span>
-														</label>
+			
 
-														<label>
-															<span class="block input-icon input-icon-right">
-																<input type="password" class="span12" placeholder="Contraseña" name="password" required>
-																<i class="icon-lock"></i>
-															</span>
-														</label>
+				
 
-														<h4 class="header blue lighter bigger">
-														<%= message %>
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
 
-														</h4>
+			<div class="main-content">
+				
+
+				
 
 
-
-														<div class="space"></div>
-
-														<div class="clearfix">
-															
-
-															<button  type="submit" class="width-35 pull-right btn btn-small btn-primary">
-																<i class="icon-key"></i>
-																Login
-															</button>
-
-														</div>
-
-														<div class="space-4"></div>
-													</fieldset>
-												</form>
-
-												
-
-												
-											</div><!--/widget-main-->
-
-											
-										</div><!--/widget-body-->
-									</div><!--/login-box-->
-
-									
+				<div class="ace-settings-container" id="ace-settings-container">
 
 
-									
-								</div>
+					<div class="ace-settings-box" id="ace-settings-box">
+						<div>
+							<div class="pull-left">
+								<select id="skin-colorpicker" class="hide">
+									<option data-skin="default" value="#438EB9">#438EB9</option>
+									<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+									<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+								</select>
+							</div>
+							<span>&nbsp; Choose Skin</span>
+						</div>
 
-	<!--basic scripts-->
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+							<label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+							<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+							<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+							<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
+						</div>
+					</div>
+				</div><!--/#ace-settings-container-->
+			</div><!--/.main-content-->
+		</div><!--/.main-container-->
+
+
+		<!--basic scripts-->
 
 		<!--[if !IE]>-->
 
@@ -419,4 +415,3 @@
 		</script>
 	</body>
 </html>
-

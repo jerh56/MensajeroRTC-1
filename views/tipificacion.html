@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 	<head>
 		<meta charset="utf-8">
 		<meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -13,7 +13,7 @@
 		<link href=" /css/bootstrap.min.css" rel="stylesheet" />
 		<link href=" /css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href=" /css/font-awesome.min.css" />
-		<link rel="stylesheet" href=" /css/estilos.css" />
+		<link rel="stylesheet" href=" /css/tipificaciones.css" />
 		
 		
 		<!--page specific plugin styles-->
@@ -44,8 +44,8 @@
 		<script src=" /js/ace-extra.min.js"></script>
 	</head>
 
-	<body>
-	<div class="navbar" id="navbar">
+	<body ng-controller="TipificacionCtrl">
+		<div class="navbar" id="navbar">
 			<script type="text/javascript">
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
 			</script>
@@ -67,6 +67,7 @@
 								
 								<span class="user-info">
 									<small>Bienvenido</small>
+								<small></small>
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -79,13 +80,13 @@
 										Inicio
 									</a>
 								</li>
-
 								<li>
 									<a href="/registro">
-										<i class="icon-user"></i>
+										<i class="icon-cog"></i>
 										Registro
 									</a>
 								</li>
+
 
 								<li class="divider"></li>
 
@@ -104,82 +105,212 @@
 
 		<div class="main-container container-fluid">
 			
-				<div class="row-fluid">
-					<div class="span12">
-						<div class="login-container">
-							<div class="row-fluid">
-								
+			<div class="selec-depa">
+					<div class="row-fluid">
+						<label for="form-field-select-1">Seleccion Departamento</label>
+							<select ng-model="dpto" ng-change="cargarTipi()" ng-options="d.coddep as d.desdep for d in dptos"></select>	
+							<p>Departamento {{ dpto }}</p>	
+					</div>
+				</div>
+					
+						<div class="tabbable">
+							<ul class="nav nav-tabs" id="myTab">
+								<li class="active">
+									<a data-toggle="tab" href="#altas">
+										Registro
+									</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#bajas">
+										Bajas
 
-							<div class="space-6"></div>
+									</a>
+								</li>
+								<li>
+									<a data-toggle="tab" href="#cambios">
+										Cambios
+									</a>
+								</li>
+							</ul>
+						<div class="tab-content">
+							<div id="altas" class="tab-pane in active">
 
-							<div class="row-fluid">
-								<div class="position-relative">
-									<div id="login-box" class="login-box visible widget-box no-border">
-										<div class="widget-body">
-											<div class="widget-main">
-												<h4 class="header blue lighter bigger">
-													<i class="icon-key"></i>
-													Introduzca su Informacion
-												</h4>
+							<form method="post" class="form-horizontal" action="/tipificacion">
+								<h3>Registro de Tipifiacacion de Incidencias</h3>
 
+								<input style="display:none" ng-model="dpto" name="coddep" ng-options="d.coddep as d.desdep for d in dptos"></input>
 
-												<div class="space-6"></div>
-
-												<form method="post" action="/signin">
-													<fieldset>
-														<label>
-															<span class="block input-icon input-icon-right">
-																<input type="text" class="span12" placeholder="Correo Electronico" name="email" required>
-																<i class="icon-user"></i>
-															</span>
-														</label>
-
-														<label>
-															<span class="block input-icon input-icon-right">
-																<input type="password" class="span12" placeholder="Contraseña" name="password" required>
-																<i class="icon-lock"></i>
-															</span>
-														</label>
-
-														<h4 class="header blue lighter bigger">
-														<%= message %>
-
-														</h4>
+									<div class="row-fluid">
+										<label for="form-field-select-1">Incidencia</label>
+										<input type="text" name="despro" id="form-field-1" placeholder="incidencia">
+									</div>
+								<h3>Registro de Origen de Incidencias</h3>
+									<div class="row-fluid">
+										<label for="form-field-select-1">Origen</label>
+										<input type="text" name="desdis" id="form-field-1" placeholder="incidencia">
+									</div>
+									<button class="btn btn-info" type="submit">
+										<i class="icon-ok bigger-110"></i>
+										Guardar
+									</button>
+							</form>
+							</div>
+							
+						
 
 
+						<div id="bajas" class="tab-pane">
+							<div id="bajas" class="tab-pane in active">
+								<h3>Baja de Tipificacion de Incidencias</h3>
+									
+									<div class="row-fluid">
+										
+										<label for="form-field-select-1">Incidencia</label>
+												
+										<select ng-model="tipi" ng-change="cargarOrig()">
+										<option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
+										</select>
 
-														<div class="space"></div>
+										<input ng-model="tipi" name="codpro" style="display:none" ng-options="d.coddep as d.desdep for d in dptos"></input>
+										
+										<p>Codigo Incidencia {{ tipi }}</p>
+										<p>Estatus: {{ statusorig }}</p>
 
-														<div class="clearfix">
-															
 
-															<button  type="submit" class="width-35 pull-right btn btn-small btn-primary">
-																<i class="icon-key"></i>
-																Login
-															</button>
+									</div>
 
-														</div>
+								<h3>Cambio de Estatus</h3>
 
-														<div class="space-4"></div>
-													</fieldset>
-												</form>
+									<div class="row-fluid">
+
+										<label for="form-field-select-1">Origen</label>
+
+										<select name="status"id="form-field-select-1">
+										<option value="true">Activar</option>
+										<option value="false">Desactivar</option>
+
+										</select>
 
 												
-
-												
-											</div><!--/widget-main-->
-
-											
-										</div><!--/widget-body-->
-									</div><!--/login-box-->
-
-									
+									</div>
+									<button class="btn btn-info" type="submit">
+										<i class="icon-ok bigger-110"></i>
+										Guardar
+									</button>
+							</div>
+						</div>
 
 
-									
-								</div>
+						<div id="cambios" class="tab-pane">
+							<div id="cambios" class="tab-pane in active">
+							<form method="post" class="form-horizontal" action="/tipificacionupdate">
+								<h3>Cambios de Tipifiacacion de Incidencias</h3>
+									<div class="row-fluid">
+										
+										<label for="form-field-select-1">Incidencia</label>
 
-	<!--basic scripts-->
+										<select ng-model="tipi" ng-change="cargarOrig()">
+										<option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
+										</select>
+										<p>Tipificaciones {{ tipi }}</p>
+
+										<input ng-model="tipi" name="codpro" style="display:none" ng-options="d.coddep as d.desdep for d in dptos"></input>
+
+
+										<div class="row-fluid">
+										<label for="form-field-select-1">Cambio Incidencia</label>
+										<input type="text" name="despro" id="form-field-1" placeholder="Incidencia" required></input>
+										</div>
+									</div>								
+								<h3>Cambios de Origen de Incidencias</h3>
+									<div class="row-fluid">
+										<label for="form-field-select-1">Origen</label>
+
+											<select ng-model="orig" ng-options="d.coddis as d.desdis for d in origs"></select>
+											<p>Origen {{ orig }}</p>
+
+											<input ng-model="orig" style="display:none" name="coddis" ng-options="d.coddis as d.desdis for d in origs"></input>
+
+
+										<div class="row-fluid">
+											<label for="form-field-select-1">Cambio Origen</label>
+											<input type="text" name="desdis" id="form-field-1" placeholder="Origen" required>
+										</div>
+									</div>
+										<button class="btn btn-info" type="submit">
+											<i class="icon-ok bigger-110"></i>
+											Guardar
+										</button>
+								</form>
+							</div>
+						</div>
+					
+						</div>
+						</div>
+			</div>
+			
+			
+		</div><!--/.page-content-->
+			
+
+						
+			    <script type="text/javascript" src="js/angular.js"></script>
+			    <script type="text/javascript" src="js/ubigeo.js"></script>
+				
+
+				<script type="text/javascript">
+					try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+				</script>
+			</div>
+
+			<div class="main-content">
+				
+
+				
+
+
+				<div class="ace-settings-container" id="ace-settings-container">
+
+
+					<div class="ace-settings-box" id="ace-settings-box">
+						<div>
+							<div class="pull-left">
+								<select id="skin-colorpicker" class="hide">
+									<option data-skin="default" value="#438EB9">#438EB9</option>
+									<option data-skin="skin-1" value="#222A2D">#222A2D</option>
+									<option data-skin="skin-2" value="#C6487E">#C6487E</option>
+									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+								</select>
+							</div>
+							<span>&nbsp; Choose Skin</span>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+							<label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+							<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+							<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
+						</div>
+
+						<div>
+							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+							<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
+						</div>
+					</div>
+				</div><!--/#ace-settings-container-->
+			</div><!--/.main-content-->
+		</div><!--/.main-container-->
+
+
+		<!--basic scripts-->
 
 		<!--[if !IE]>-->
 
@@ -419,4 +550,3 @@
 		</script>
 	</body>
 </html>
-
