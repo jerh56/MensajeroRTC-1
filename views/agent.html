@@ -23,8 +23,30 @@
 			});
 			// listener, whenever the server emits 'updatechat', this updates the chat body
 		  	//username de quien envia el mensaje
+
+		    socket.on('msglist', function (username, data,idroom) {
+				// console.log(data);
+				// for (var i = 0; i < data.lenght)
+				// if($('#tab-' + idroom ).length){
+				// 	console.log('Si existe');
+				// }
+				// else{
+			});
 			socket.on('updatechat', function (username, data,idroom) {
-			    
+		
+				if($('#tab-' + idroom ).length){
+					console.log('Si existe');
+				}
+				else{
+					$('#tabsmsj').append('<div class="contenedor"><input type="radio" checked name="tabs" id="tab'+idroom+'"><label id="tab-' + idroom + '" for="tab'+idroom+'">' + username +'</label><div id="tab-content'+idroom+'" class="tab-content animated fadeIn"><div class="informacion"><div class="info-user"></div><div class="info-agente"></div></div> <div id ="box_conversation' + idroom + '" class="box_conversation" style="display: block;"></div><div class="caja-mensaje"><input id="data' + idroom +'" style="width:600px;" /> <input type="button" id="datasend' + idroom +'" value="enviar" /><input type="button" id="logout' + idroom +'" value="Cerrar" /></div><div class="tipificaciones"><div class="tipi"><h5>Tipificaciones de incidencia</h5><select name="transporte"><option>No imprime impresora</option><optionoperativo</option><option>No se puede facturar</option></select><h5>Dialogos Predeterminados</H5><select name="transporte"><option>Buenas tardes</option></select></div> <div class="dialogo"><h5>Origen de Incidencia</h5><select name="transporte"><option>Sistema</option><option>Manual</option></select><h5>Numero de Inicidencias</H5><select name="transporte"><option>1</option><option>2</option><option>3</option></select</div></div></div></li></div>');
+					var script   = document.createElement("script");
+					script.type  = "text/javascript";
+
+					//script.src   = "/roomscript.js";    // use this for linked script
+					script.text  = "$('#datasend" + idroom +"').click( function() {var message = $('#data" + idroom +"').val();$('#data" + idroom +"').val('');$('#data" + idroom +"').focus();socket.emit('sendchatagent', message,'" + idroom +"');});$('#data" + idroom +"').keypress(function(e) {if(e.which == 13) {$(this).blur();$('#datasend" + idroom +"').focus().click();}});"               // use this for inline script
+					document.body.appendChild(script);
+					console.log('No existe');
+				}	
 			    console.log(idroom);
 			    console.log(username);
 			    console.log(data);
@@ -43,8 +65,10 @@
 				} 
 				//Getting the element's new height now
 				//alert(data + '  ' + pos);
-			    var sHeight = $('#conversation' + idroom )[0].scrollHeight;
-			    //Scrolling the element to the sHeight
+			    var sHeight = $('#box_conversation' + idroom )[0].scrollHeight;
+			    console.log(sHeight);
+				console.log('#box_conversation' + idroom);
+				//Scrolling the element to the sHeight
 			    $('#box_conversation' + idroom).scrollTop(sHeight);
 			    console.log(idroom);
 			    console.log(username);
@@ -59,8 +83,8 @@
 			    console.log('escribiendo');
 			    $('#tab-' + idroom).text( username + ' esta escribiendo...');       
 		  	});*/
-		   	socket.on('newuser', function (emisor, username, idroom) {
-				socket.emit('addagentroom', idroom, agentname,username);
+		   	socket.on('newuser', function (emisor, username, idroom, par_userid) {
+				socket.emit('addagentroom', idroom, agentname,username, par_userid);
 				console.log(idroom);
 				console.log(username);
 				$('#tabsmsj').append('<div class="contenedor"><input type="radio" checked name="tabs" id="tab'+idroom+'"><label id="tab-' + idroom + '" for="tab'+idroom+'">' + username +'</label><div id="tab-content'+idroom+'" class="tab-content animated fadeIn"><div class="informacion"><div class="info-user"></div><div class="info-agente"></div></div> <div id ="box_conversation' + idroom + '" class="box_conversation" style="display: block;"></div><div class="caja-mensaje"><input id="data' + idroom +'" style="width:600px;" /> <input type="button" id="datasend' + idroom +'" value="enviar" /><input type="button" id="logout' + idroom +'" value="Cerrar" /></div><div class="tipificaciones"><div class="tipi"><h5>Tipificaciones de incidencia</h5><select name="transporte"><option>No imprime impresora</option><optionoperativo</option><option>No se puede facturar</option></select><h5>Dialogos Predeterminados</H5><select name="transporte"><option>Buenas tardes</option></select></div> <div class="dialogo"><h5>Origen de Incidencia</h5><select name="transporte"><option>Sistema</option><option>Manual</option></select><h5>Numero de Inicidencias</H5><select name="transporte"><option>1</option><option>2</option><option>3</option></select</div></div></div></li></div>');
@@ -72,9 +96,11 @@
 				document.body.appendChild(script);
 				console.log(username);
 				console.log(idroom);
-				$('#divbody').hidde();
+				//$('#divbody').hide();
 			
 			});
+
+
 			// listener, whenever the server emits 'updaterooms', this updates the room the client is in
 			socket.on('updaterooms', function(rooms, current_room) {
 				$('#agents').empty();
@@ -87,6 +113,10 @@
 		  	socket.on('conectedagent', function(idroom) {
 		    	socket.idroom = idroom;
 		  	});
+			socket.on('redirect', function(par_url) {
+				console.log(par_url);
+				window.location.href = par_url;
+			});  
 			function switchRoom(room){
 				socket.emit('switchRoom', room);
 			}
@@ -134,8 +164,7 @@
 			</div-->
 		<!--/div-->
 		<ul id="tabsmsj" class="tabs">
-				<script type="text/javascript" src="js/angular.js"></script>
-				<script type="text/javascript" src="js/ubigeo.js"></script>
+			
 		</ul>
 
 

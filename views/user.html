@@ -380,6 +380,10 @@
 					   $('#agents').append('<div>' + value.nombre + '</div>');
 					});
 				});
+				socket.on('redirect', function(par_url) {
+					console.log(par_url);
+					window.location.href = par_url;
+			    });  
 				function switchRoom(room){
 					socket.emit('switchRoom', room);
 				}

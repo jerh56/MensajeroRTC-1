@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var userSchema = mongoose.Schema({
     nombre: String,
     idroom: String,
-    cantidad: { type: Number, default: 0 }
+    cantidad: { type: Number, default: 0 },
+    userid: String
 });
 module.exports = mongoose.model('agentnames', userSchema);

@@ -109,7 +109,7 @@ router.get('/', function(req, res) {
           res.render('usuario', {message: req.flash('message'), user: req.user});
  });
 
- router.post('/user', function(req, res){
+ router.post('/user', require('connect-ensure-login').ensureLoggedIn('/login'), function(req, res){
 
 
         var newDescripcion = new Descripcion();
