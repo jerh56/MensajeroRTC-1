@@ -3,13 +3,13 @@ var express = require('express');
 var app = express();
 
 
-//var url = process.env.MONGODB_URI;
+var url = process.env.MONGODB_URI || 'mongodb://localhost/MensajeroRTC';
 // if (app.get('env') === 'production') {
 //  var  url = 'mongodb://admin:123456@ds051903.mlab.com:51903/heroku_554zpg9r';
 // }
 // else{
 // 	if (app.get('env') === 'development'){
-var  url = 'mongodb://localhost/MensajeroRTC';	
+//var  url = 'mongodb://localhost/MensajeroRTC';	
 // 	}
 // 	else{
 //  		var  url = 'mongodb://admin:123456@ds051903.mlab.com:51903/heroku_554zpg9r';	
