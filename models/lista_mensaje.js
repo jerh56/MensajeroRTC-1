@@ -1,6 +1,8 @@
 var MongoClient = require('mongodb').MongoClient;
 
-MongoClient.connect('mongodb://localhost/MensajeroRTC', function(err, db) {
+var url = process.env.MONGODB_URI || 'mongodb://localhost/MensajeroRTC';
+
+MongoClient.connect(url, function(err, db) {
 
     if (err) throw err;
 
